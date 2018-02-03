@@ -27,7 +27,6 @@ SECRET_KEY = 'fpn)chx#nha0xc_d&55_%c9jrat)x0(1*&ia1og*&k8das6&x*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition

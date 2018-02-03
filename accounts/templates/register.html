@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load  static %}
+{% load socialaccount %}
+{% providers_media_js %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Create Account{% endblock%}</title>
+</head>
+<body>
+{% block body %}
+<div class="container">
+        <div class="row">
+            <div class="col-4 mx-auto">
+                <h1>You can register here</h1>
+            
+                    <a href="{% provider_login_url 'facebook' method='js_sdk' %}" class="btn btn-block btn-social btn-facebook" style="background-color:#3b5998;text-align:center">
+                      <span class="fa fa-facebook"></span>
+                   Sign in with Facebook
+                     </a>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
+</body>
+</html>

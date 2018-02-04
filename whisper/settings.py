@@ -26,6 +26,8 @@ SECRET_KEY = 'fpn)chx#nha0xc_d&55_%c9jrat)x0(1*&ia1og*&k8das6&x*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#remember to remove this and add real email-service
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Application definition
@@ -61,7 +63,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'whisper.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

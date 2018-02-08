@@ -13,14 +13,15 @@
  {% block content %}
         <div class="container list">
             <div class="row">
-           <div class="col-4  mr-2">
-            <div class="card" style='width: 21rem; '>
-              <img class="card-img-top" src="https://curaflo.com/wp-content/uploads/2017/04/male-avatar1.png" style="height:250px" alt="Card image cap">
+           <div class="col-5  mr-2">
+            <div class="card" style='width: 23rem; '>
+              <img class="card-img-top" src="{{whisper.image.url}}" style="height:250px" alt="Card image cap">
               <div class="card-body">
                 <p class="card-text">{{ whisper.text}}</p>
                   <a href="#" class="btn btn-danger">Like</a> {{ whisper.likes}}
                   {% if whisper.creator == user.profile %}
                   <a href="{% url 'posts:delete-whisper' whisper.pk%}" class="btn btn-info">Delete Whisper</a>
+                  <a href="{% url 'posts:update-whisper' whisper.pk%}" class="btn btn-info">Edit</a>
                   {% endif %}
               </div>
             </div>

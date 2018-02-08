@@ -32,7 +32,7 @@ class Whisper(WhisperBase):
         return reverse('posts:whisper-detail', args=[str(self.id)])
     class Meta:
         abstract=False
-        get_latest_by='time_stamp'
+        get_latest_by='-time_stamp'
 
 
 class Comment(WhisperBase):

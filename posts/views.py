@@ -24,7 +24,7 @@ class LatestWhispers(ListView):
     model = Whisper
     template_name = 'whisper_list.html'
     context_object_name = 'whispers'
-
+    ordering = '-time_stamp'
 
 class PopularWhispers(ListView):
     """ ordering the whisper by likes and only few number only 10 stories for now """
@@ -48,13 +48,14 @@ class CreateWhisper(CreateView):
 
     def form_valid(self, form):
         form.instance.creator=self.request.user.profile #takes the current user as the creator of the whisper
+        form.instance.image = self.request.FILES['image']
         return super().form_valid(form)
 
 
 class UpdateWhisper(WhisperOwnerPermissionMixin,UpdateView):
     model = Whisper
     fields = ['text', 'image']
-    template_name = 'create_whisper.html'
+    template_name = 'update_whisper.html'
     success_url = reverse_lazy('posts:latest')
     redirect_field_name = reverse_lazy('posts:latest')
 
@@ -62,6 +63,7 @@ class UpdateWhisper(WhisperOwnerPermissionMixin,UpdateView):
 
     def form_valid(self, form):
         form.instance.creator=self.request.user.profile #takes the current user as the creator of the whisper
+        form.instance.image = self.request.FILES['image']
         return super().form_valid(form)
 
 

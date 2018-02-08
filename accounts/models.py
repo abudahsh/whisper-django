@@ -19,3 +19,6 @@ class Profile(models.Model):
     rating=models.FloatField(default=5.0)
     number_of_ratings=models.PositiveSmallIntegerField(default=0)
     location=models.GenericIPAddressField(null=True, blank=True)
+
+    def __str__(self):
+        return self.nickname

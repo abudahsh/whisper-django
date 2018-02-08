@@ -190,6 +190,6 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_USERNAME_REQURIED=True
 
-
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL ='/media/'
 LOGIN_REDIRECT_URL = 'posts:home'

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+ {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+        {% endblock %}
+
+ {% block content %}
+        <div class="container list">
+            <div class="row">
+           <div class="col-4  mr-2">
+            <div class="card" style='width: 21rem; '>
+              <img class="card-img-top" src="https://curaflo.com/wp-content/uploads/2017/04/male-avatar1.png" style="height:250px" alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text">{{ whisper.text}}</p>
+                  <a href="#" class="btn btn-danger">Like</a> {{ whisper.likes}}
+                  {% if whisper.creator == user.profile %}
+                  <a href="{% url 'posts:delete-whisper' whisper.pk%}" class="btn btn-info">Delete Whisper</a>
+                  {% endif %}
+              </div>
+            </div>
+           </div>
+                  <div class="col-4">
+                <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title">NickName:{{ whisper.creator }}</h5>
+                <p class="card-text">Age: {{ whisper.creator.age}} years</p>
+                  <p class="card-text">Location: {{ whisper.creator.location}}</p>
+
+                   Rating: {{ whisper.creator.rating }}<a href="#" class="btn btn-danger">Rate</a>
+                  {% if whisper.creator == user.profile %}
+                  <a href="{% url 'posts:delete-whisper' whisper.pk%}" class="btn btn-info">Delete Whisper</a>
+                  {% endif %}
+              </div>
+            </div>
+        </div>
+
+</div>
+        </div>
+        <div class="container">
+        <div class="row mt-3">
+            <div class="col-4">
+        {% for comment in whisper.comment_set.all %}
+            <div class="card" style='width: 21rem; '>
+              <img class="card-img-top" src="https://curaflo.com/wp-content/uploads/2017/04/male-avatar1.png" style="height:250px" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ comment.creator }}</h5>
+                <p class="card-text">{{ comment.text}}</p>
+                  <a href="#" class="btn btn-danger">Like</a> {{ comment.likes}}
+
+              </div>
+            </div>
+        {% endfor %}
+            </div>
+        </div>
+        </div>
+ {% endblock %}
+
+</body>
+</html>

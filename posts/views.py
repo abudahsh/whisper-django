@@ -1,11 +1,13 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import render
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, RedirectView
 from django.views.generic.edit import ModelFormMixin, UpdateView, DeleteView
 
+from accounts.models import Profile
 from posts.models import Whisper
 
 class WhisperOwnerPermissionMixin(UserPassesTestMixin):
@@ -71,3 +73,46 @@ class DeleteWhisper(WhisperOwnerPermissionMixin,DeleteView):
     model = Whisper
     success_url = reverse_lazy('posts:latest')
     template_name = 'whisper_confirm_delete.html'
+
+
+class UpdateProfile(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['nickname', 'age', 'location']
+    success_url = reverse_lazy('posts:latest')
+    template_name = 'update_profile.html'
+
+
+
+
+
+def like_whisper_list(request, pk):
+    whisper=get_object_or_404(Whisper, pk=pk)
+    try:
+        if whisper.is_liked:
+            whisper.is_liked= False
+            whisper.likes-=1
+        else:
+            whisper.likes+=1
+            whisper.is_liked=True
+        whisper.save()
+    except (KeyError, Whisper.DoesNotExist):
+        return HttpResponse(404)
+    else:
+        return redirect(reverse_lazy('posts:latest'))
+
+
+
+def like_whisper_detail(request, pk):
+    whisper=get_object_or_404(Whisper, pk=pk)
+    try:
+        if whisper.is_liked:
+            whisper.is_liked= False
+            whisper.likes-=1
+        else:
+            whisper.likes+=1
+            whisper.is_liked=True
+        whisper.save()
+    except (KeyError, Whisper.DoesNotExist):
+        return HttpResponse(404)
+    else:
+        return redirect(reverse_lazy('posts:whisper-detail', kwargs={'pk':pk}))

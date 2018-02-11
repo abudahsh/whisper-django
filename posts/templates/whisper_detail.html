@@ -18,7 +18,8 @@
               <img class="card-img-top" src="{{whisper.image.url}}" style="height:250px" alt="Card image cap">
               <div class="card-body">
                 <p class="card-text">{{ whisper.text}}</p>
-                  <a href="#" class="btn btn-danger">Like</a> {{ whisper.likes}}
+                  <a href="{% url 'posts:like-whisper-detail' whisper.pk %}" class="btn btn-danger btn-like">
+                      {% if whisper.is_liked %}dislike {%else%}Like{% endif %}</a> {{ whisper.likes}}
                   {% if whisper.creator == user.profile %}
                   <a href="{% url 'posts:delete-whisper' whisper.pk%}" class="btn btn-info">Delete Whisper</a>
                   <a href="{% url 'posts:update-whisper' whisper.pk%}" class="btn btn-info">Edit</a>
@@ -52,7 +53,8 @@
               <div class="card-body">
                 <h5 class="card-title">{{ comment.creator }}</h5>
                 <p class="card-text">{{ comment.text}}</p>
-                  <a href="#" class="btn btn-danger">Like</a> {{ comment.likes}}
+                  <a href="{% url 'posts:like-whisper-detail' whisper.pk %}" class="btn btn-danger btn-like">
+                      {% if whisper.is_liked %}dislike {%else%}Like{% endif %}</a> {{ comment.likes}}
 
               </div>
             </div>

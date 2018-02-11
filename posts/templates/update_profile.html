@@ -14,23 +14,14 @@
 <div class="list">
     <div class="row">
     <div class="col-5 mr-5 ml-5">
-    <h3>Update Whisper Form</h3>
+    <h3>Update Profile Form</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p}}
     <button class="btn btn-primary" type="submit">Update</button>
     </form>
     </div>
-    <div class="col-4">
-            <div class="card" style='width: 23rem; '>
-              <img class="card-img-top" src="{{whisper.image.url}}" style="height:250px" alt="Card image cap">
-              <div class="card-body">
-                <p class="card-text">{{ whisper.text}}</p>
 
-              </div>
-            </div>
-
-    </div>
 </div>
 </div>
 {% endblock%}

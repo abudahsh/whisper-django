@@ -5,6 +5,7 @@ from django.db import models
 from django.urls import reverse
 
 from accounts.models import Profile
+from accounts.names import generate_random_pic
 
 
 class Category(models.Model):
@@ -14,11 +15,12 @@ class Category(models.Model):
 class WhisperBase(models.Model):
     creator=models.ForeignKey(Profile, on_delete=models.CASCADE, related_name= '%(model_name)s')
     text=models.TextField(max_length=100)
-    image=models.ImageField(blank=True, null=True, upload_to='whisper_images/', default='whisper_images/None/no-img.png')
+    image=models.ImageField(blank=True, null=True, upload_to='whisper_images/', default=generate_random_pic) #found in accounts.names.py
     likes=models.PositiveSmallIntegerField(default=0)
     categories=models.ManyToManyField(Category, null=True, blank=True)
     comments=models.PositiveSmallIntegerField(default=0)
     time_stamp=models.DateTimeField(auto_now_add=True)
+    is_liked=models.BooleanField(default=False)
 
     def __str__(self):
         return self.creator.nickname +'  - '+ str(self.text[:18])
@@ -40,3 +42,4 @@ class Comment(WhisperBase):
     class Meta:
         abstract=False
         ordering=['-time_stamp']
+
